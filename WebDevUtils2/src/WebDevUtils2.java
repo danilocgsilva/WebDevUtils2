@@ -1,4 +1,4 @@
-import hosts.Hosts;
+import FTP.FTPDownload;
 
 public class WebDevUtils2 {
 
@@ -11,7 +11,12 @@ public class WebDevUtils2 {
 		System.out.println(content);
 		*/
 		
+		/*
 		Hosts hosts = new Hosts();
 		System.out.println(hosts.getContent());
+		*/
+		
+		FTPDownload ftpd = new FTPDownload();
+		ftpd.download();
 	}
 }
