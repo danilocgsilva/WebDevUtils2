@@ -11,11 +11,14 @@ public class WebDevUtils2 {
 		content = rContent.readFile("D://Users//Danilo//Temporários//cteste.txt");
 		System.out.println(content);	*/
 		
-		Hosts hosts = new Hosts();
-		System.out.println(hosts.getContent());
+		/*Hosts hosts = new Hosts();
+		System.out.println(hosts.getContent());*/
 		
+		FTPDownload ftpd = new FTPDownload();
+		ftpd.setHost("www.danilocgsilva.me");
+		ftpd.setUser("www.danilocgsilva.me");
+		ftpd.setPass("yat178");
 		
-		/*FTPDownload ftpd = new FTPDownload();
-		ftpd.download();*/
+		ftpd.download("/cgi-bin/ftp/hwftp.txt", "D:\\Users\\Danilo\\Temporários\\hwftp5.txt");
 	}
 }
