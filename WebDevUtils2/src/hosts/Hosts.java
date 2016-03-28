@@ -22,6 +22,8 @@ public class Hosts {
 		
 		String eachLine[] = this.content.split("\\r?\\n");
 		this.content = "";
+		char[] checkChars = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ1234567890".toCharArray();
+		boolean validLine = false;
 		
 		for (int i = 0; i < eachLine.length; i++) {
 			String eachLineLoop = eachLine[i];
@@ -30,7 +32,17 @@ public class Hosts {
 				eachLineLoop = eachLineLoop.substring(0, commentSeparatorPosition);
 			}
 			
-			this.content += eachLineLoop + "\n";
+			// Verify if the remaining string after # have some relevant content
+			for (int j = 0; j < checkChars.length; j++) {
+				String charLoop = String.valueOf(checkChars[j]);
+				if (eachLineLoop.contains(charLoop)) {
+					validLine = true;
+				}
+			}
+			
+			if (validLine) {
+				this.content += eachLineLoop + "\n";
+			}
 		}
 	}
 	
