@@ -9,15 +9,28 @@ import java.io.OutputStream;
 
 import content.ReadContentHandledException;
 import hosts.Hosts;
+import utils.LargeMessageReport;
 
 
 public class WebDevUtils2 {
 
 	public static void main(String[] args) {
 	
+		LargeMessageReport lmr = new LargeMessageReport();
+		String outputMessage;
+		
+		if (args.length == 0) {
+			outputMessage = "There's need a command:\n"
+			+ "hostpath: Shows the operational system host path."
+			+ "ftpdownload: Download a test ftp file";
+		} else {
+			outputMessage = "OK";
+		}
+		lmr.printMessage(outputMessage);
+		
 /*		String content = null;
 		ReadContentHandledException rContent = new ReadContentHandledException();
-		content = rContent.readFile("D://Users//Danilo//Temporários//cteste.txt");
+		content = rContent.readFile("D://Users//Danilo//Temporï¿½rios//cteste.txt");
 		System.out.println(content);	*/
 		
 		/*Hosts hosts = new Hosts();
@@ -31,11 +44,12 @@ public class WebDevUtils2 {
 		ftpd.setUser("www.danilocgsilva.me");
 		ftpd.setPass("yat178");
 		
-		ftpd.download("/cgi-bin/ftp/hwftp.txt", "D:\\Users\\Danilo\\Temporários\\hwftp5.txt");*/
+		ftpd.download("/cgi-bin/ftp/hwftp.txt", "D:\\Users\\Danilo\\Temporï¿½rios\\hwftp5.txt");*/
 		
 		
 		
 		/* Using the Apache Net FTP Cliente */
+		/*
         FTPClient ftpClient = new FTPClient();
         try {
  
@@ -68,6 +82,7 @@ public class WebDevUtils2 {
                 ex.printStackTrace();
             }
         }
+        */
 		
 	}
 }
