@@ -49,4 +49,8 @@ public class Hosts {
 	public String getContent() {
 		return this.content;
 	}
+	
+	public String getHostPath() {
+		return this.hostPath;
+	}
 }

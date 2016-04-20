@@ -17,14 +17,17 @@ public class WebDevUtils2 {
 	public static void main(String[] args) {
 	
 		LargeMessageReport lmr = new LargeMessageReport();
-		String outputMessage;
+		String outputMessage = "";
 		
 		if (args.length == 0) {
 			outputMessage = "There's need a command:\n"
-			+ "hostpath: Shows the operational system host path."
+			+ "hostpath: Shows the operational system host path.\n"
 			+ "ftpdownload: Download a test ftp file";
 		} else {
-			outputMessage = "OK";
+			if (args[0] == "hostpath") {
+				Hosts hs = new Hosts();
+				
+			}
 		}
 		lmr.printMessage(outputMessage);
 		
