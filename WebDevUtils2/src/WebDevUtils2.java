@@ -24,6 +24,20 @@ public class WebDevUtils2 {
 		um.singleLineConsoleMessage(hs.getHostPath());
 		um.separator();
 		wduFTP ftp = new wduFTP("www.danilocgsilva.me", "www.danilocgsilva.me", "yat178");
-		ftp.download("/htdocs/arquivosdeinformacoesdophp.php", "C://Users//Danilo//temporarios//tamanhos padroes de tela" + System.currentTimeMillis()  + ".txt");
+		
+		try {
+			ftp.download("/htdocs/arquivosdeinformacoesdophp.php", "C://Users//Danilo//temporarios//tamanhos padroes de tela" + System.currentTimeMillis()  + ".txt");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		try {
+			ftp.downloadFiles("/htdocs/", "C://Users//Danilo//temporarios//" + "teste_" + System.currentTimeMillis() + "//");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
 	}
 }
