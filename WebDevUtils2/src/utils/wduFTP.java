@@ -62,23 +62,21 @@ public class wduFTP extends FTPClient {
 		}
 
 		for (FTPFile file : fileList) {
-
+			
 			if (file.isFile()) {
 				String sourcePathFile = remoteSourcePath + file.getName();
 				String destinyPath = localDestinyPath + file.getName();
 
 				this.download(sourcePathFile, destinyPath);
-			}
-
-			/*
-			if (file.isDirectory()) {
-				boolean selfDir = file.getName() == "." && file.getName() == "..";
-				if (selfDir) {
-				this.download(remoteSourcePath + "/" + file.getName(),
-						localDestinyPath + fileSeparator + file.getName());
+			} else if (file.isDirectory()) {
+				if (!file.getName().equals(".") && !file.getName().equals("..")) {
+					
+					String sourcePathFolder = remoteSourcePath + file.getName() + "/";
+					String destinyFolder = localDestinyPath + file.getName() + "//";
+					
+					this.downloadFiles(sourcePathFolder, destinyFolder);
 				}
 			}
-			*/
 
 		}
 	}
