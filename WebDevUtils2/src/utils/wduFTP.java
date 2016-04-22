@@ -13,17 +13,21 @@ import java.nio.file.Path;
 public class wduFTP extends FTPClient {
 
 	private boolean isLogged;
+	
+	private wduLog ftpLog;
 
 	public boolean isLogged() {
 		return this.isLogged;
 	}
 
-	public wduFTP(String host, String user, String pass) {
+	public wduFTP(String host, String user, String pass, wduLog log) {
+		this.ftpLog = log;
 		try {
 			this.connect(host, 21);
 			isLogged = this.login(user, pass);
 			this.enterLocalPassiveMode();
 			this.setFileType(FTP.BINARY_FILE_TYPE);
+			log.writeLog("Successfull conected and logged.");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

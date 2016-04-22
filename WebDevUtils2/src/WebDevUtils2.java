@@ -10,6 +10,7 @@ import content.ReadContentHandledException;
 import hosts.Hosts;
 import utils.UtilsMethods;
 import utils.wduFTP;
+import utils.wduLog;
 
 
 public class WebDevUtils2 {
@@ -23,7 +24,8 @@ public class WebDevUtils2 {
 		um.separator();
 		um.singleLineConsoleMessage(hs.getHostPath());
 		um.separator();
-		wduFTP ftp = new wduFTP("www.danilocgsilva.me", "www.danilocgsilva.me", "yat178");
+		wduLog log = new wduLog("D://Users//Danilo//Temporários//log.txt");
+		wduFTP ftp = new wduFTP("www.danilocgsilva.me", "www.danilocgsilva.me", "yat178", log);
 		
 		try {
 			ftp.download("/htdocs/arquivosdeinformacoesdophp.php", "C://Users//Danilo//temporarios//tamanhos padroes de tela" + System.currentTimeMillis()  + ".txt");
@@ -33,7 +35,7 @@ public class WebDevUtils2 {
 		
 		
 		try {
-			ftp.downloadFiles("/htdocs/", "C://Users//Danilo//temporarios//" + "teste_" + System.currentTimeMillis() + "//");
+			ftp.downloadFiles("/htdocs/", "D://Users//Danilo//Temporários//" + "teste_" + System.currentTimeMillis() + "//");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
