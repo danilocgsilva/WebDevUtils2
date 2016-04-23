@@ -8,11 +8,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Random;
 
 public class wduFTP extends FTPClient {
 
 	private boolean isLogged;
-	
+
 	private wduLog ftpLog;
 
 	public boolean isLogged() {
@@ -26,6 +27,8 @@ public class wduFTP extends FTPClient {
 			isLogged = this.login(user, pass);
 			this.enterLocalPassiveMode();
 			this.setFileType(FTP.BINARY_FILE_TYPE);
+			this.setControlKeepAliveTimeout(300);
+			this.setConnectTimeout(300);
 			log.writeLog("Successfull conected and logged.");
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -51,40 +54,68 @@ public class wduFTP extends FTPClient {
 			exceptionMessage = "Error in file downloading. ";
 			exceptionMessage += "Source: " + serverPath + " ";
 			exceptionMessage += "Destiny: " + localPath;
-			
+
 			ftpLog.writeLog(exceptionMessage);
 			ftpLog.writeConsole(exceptionMessage);
 		}
 		os.close();
 	}
 
-	public void downloadFiles(String remoteSourcePath, String localDestinyPath) throws Exception {
+	public void startDownloadRecursive(String remoteSourcePath, String localDestinyPath) {
+		String job = createJobId();
+		this.ftpLog.writeLog("------");
+		this.ftpLog.writeLog("Job " + job + " created.");
+
+		try {
+			downloadRecursive(remoteSourcePath, localDestinyPath);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		this.ftpLog.writeLog("Job " + job + " finished.");
+	}
+
+	public void downloadRecursive(String remoteSourcePath, String localDestinyPath) throws Exception {
 
 		FTPFile[] fileList = this.listFiles(remoteSourcePath);
-		String fileSeparator = System.getProperty("file.separator");
 
 		if (!(new File(localDestinyPath).exists())) {
 			new File(localDestinyPath).mkdir();
 		}
 
 		for (FTPFile file : fileList) {
-			
+
 			if (file.isFile()) {
 				String sourcePathFile = remoteSourcePath + file.getName();
 				String destinyPath = localDestinyPath + file.getName();
 
-				this.download(sourcePathFile, destinyPath);
+				try {
+					this.download(sourcePathFile, destinyPath);
+				} catch (Exception ex) {
+					this.ftpLog.writeLog("ERROR: Problem in download. Source: \"" + sourcePathFile + "\". Destiny: \"" + destinyPath + "\". Exception message: " + ex.getMessage());
+				}
+				
 			} else if (file.isDirectory()) {
 				if (!file.getName().equals(".") && !file.getName().equals("..")) {
-					
+
 					String sourcePathFolder = remoteSourcePath + file.getName() + "/";
 					String destinyFolder = localDestinyPath + file.getName() + "//";
-					
-					this.downloadFiles(sourcePathFolder, destinyFolder);
+
+					this.downloadRecursive(sourcePathFolder, destinyFolder);
 				}
 			}
-
 		}
+
+	}
+
+	private String createJobId() {
+		String letterUsedToCreateId = "abcdefghijklmnopqrstuvwyxz1234567890";
+		String id = "";
+		Random r = new Random();
+		for (int i = 0; i < 32; i++) {
+			id += letterUsedToCreateId.charAt(r.nextInt(letterUsedToCreateId.length() - 1));
+		}
+		return id;
 	}
 
 }

@@ -2,6 +2,12 @@ package content;
 
 import java.io.IOException;
 
+/**
+ * Reads a file's content. Manage error internally.
+ * 
+ * @author Danilo
+ *
+ */
 public class ReadContentHandledException {
 	public String readFile(String file) {
 		ReadContent rContent = new ReadContent();

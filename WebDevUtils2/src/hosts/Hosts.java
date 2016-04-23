@@ -2,6 +2,13 @@ package hosts;
 
 import content.ReadContentHandledException;
 
+/**
+ * A smart class to deals with hosts OS file, don'r matter if is in Windows or Linux.
+ * The comment file's line are discarded.
+ * 
+ * @author Danilo
+ *
+ */
 public class Hosts {
 	
 	private String systemOS;

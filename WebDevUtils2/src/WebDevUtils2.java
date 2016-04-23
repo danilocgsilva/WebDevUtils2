@@ -33,13 +33,11 @@ public class WebDevUtils2 {
 			ex.printStackTrace();
 		}
 		
-		
 		try {
-			ftp.downloadFiles("/htdocs/", "C://Users//Danilo//temporarios//" + "teste_" + System.currentTimeMillis() + "//");
+			ftp.startDownloadRecursive("/htdocs/", "C://Users//Danilo//temporarios//" + "teste_" + System.currentTimeMillis() + "//");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
 		
 	}
 }
