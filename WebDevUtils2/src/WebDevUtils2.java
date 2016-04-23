@@ -24,7 +24,7 @@ public class WebDevUtils2 {
 		um.separator();
 		um.singleLineConsoleMessage(hs.getHostPath());
 		um.separator();
-		wduLog log = new wduLog("D://Users//Danilo//Temporários//log.txt");
+		wduLog log = new wduLog("C://Users//Danilo//temporarios//log.txt");
 		wduFTP ftp = new wduFTP("www.danilocgsilva.me", "www.danilocgsilva.me", "yat178", log);
 		
 		try {
@@ -35,7 +35,7 @@ public class WebDevUtils2 {
 		
 		
 		try {
-			ftp.downloadFiles("/htdocs/", "D://Users//Danilo//Temporários//" + "teste_" + System.currentTimeMillis() + "//");
+			ftp.downloadFiles("/htdocs/", "C://Users//Danilo//temporarios//" + "teste_" + System.currentTimeMillis() + "//");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

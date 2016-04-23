@@ -8,7 +8,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.nio.file.Path;
 
 public class wduFTP extends FTPClient {
 
@@ -44,14 +43,17 @@ public class wduFTP extends FTPClient {
 		boolean downloadedWithSuccess = this.retrieveFile(serverPath, os);
 
 		if (downloadedWithSuccess) {
-			System.out.println("Successful downloaded. From \"" + serverPath + "\" to \"" + localPath + "\"");
+			String message = "Successful downloaded. From \"" + serverPath + "\" to \"" + localPath + "\"";
+			ftpLog.writeLog(message);
+			ftpLog.writeConsole(message);
 		} else {
 			String exceptionMessage = "";
 			exceptionMessage = "Error in file downloading. ";
 			exceptionMessage += "Source: " + serverPath + " ";
 			exceptionMessage += "Destiny: " + localPath;
-
-			throw new Exception(exceptionMessage);
+			
+			ftpLog.writeLog(exceptionMessage);
+			ftpLog.writeConsole(exceptionMessage);
 		}
 		os.close();
 	}
